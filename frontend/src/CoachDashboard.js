@@ -6,7 +6,6 @@ import TeamMood from '../components/TeamMood';
 import TacticalBoard from '../components/TacticalBoard';
 
 function CoachDashboard() {
-  // State לניהול מטרות לדוגמה (Placeholder)
   const [actions, setActions] = useState([
     {id:1, name:"יציאה נכונה לכדור גובה", hulia:"שוער", successCount:0, failCount:0},
     {id:2, name:"סגירת קווי מסירה", hulia:"הגנה", successCount:0, failCount:0},
@@ -17,12 +16,10 @@ function CoachDashboard() {
   const [selectedAction, setSelectedAction] = useState(null);
   const [showTacticalBoard, setShowTacticalBoard] = useState(false);
 
-  // פונקציה לפתיחת הפופאפ
   const openActionPopup = (action) => {
     setSelectedAction(action);
   };
 
-  // פונקציה לסגירת הפופאפ ולעדכן הצלחה/כישלון
   const handleActionResult = (actionId, isSuccess, note) => {
     setActions(prev=>prev.map(a=>{
       if(a.id===actionId){
@@ -35,29 +32,24 @@ function CoachDashboard() {
       return a;
     }));
     setSelectedAction(null);
-    // כאן בהמשך אפשר לקרוא ל-API
   };
 
   const handleClosePopup = () => {
     setSelectedAction(null);
   };
 
-  // כפתורי סיום מחצית/משחק
   const endHalf = () => {
-    // כאן נקרא לAPI לסיום מחצית ולהציג סיכום מחצית
-    alert("סיום מחצית - בהמשך נממש פופאפ סיכום מחצית");
+    alert("סיום מחצית - בהמשך נממש פופאפ סיכום");
   };
 
   const endGame = () => {
-    // API לסיום משחק וסיכום מלא
-    alert("סיום משחק - פופאפ סיכום מלא יוצג בהמשך");
+    alert("סיום משחק - בהמשך נממש פופאפ סיכום מלא");
   };
 
   return (
     <div style={{padding:'20px'}}>
       <h1>מעקב בזמן אמת (מאמן)</h1>
-      <p>דקה נוכחית: <span>23</span> {/* בעתיד נעדכן מתוך סטופר*/}</p>
-
+      <p>דקה נוכחית: <span>23</span></p>
       <div style={{marginBottom:'20px'}}>
         <button style={btnStyle} onClick={()=>alert("מתחילים משחק...")}>התחל משחק</button>
         <button style={btnStyle} onClick={endHalf}>סיום מחצית</button>
@@ -65,7 +57,6 @@ function CoachDashboard() {
         <button style={btnStyle} onClick={()=>setShowTacticalBoard(true)}>פתח לוח טקטי</button>
       </div>
 
-      {/* אזור המטרות לפי חוליה */}
       <h2>שוער</h2>
       <div style={huliaBoxStyle}>
         {actions.filter(a=>a.hulia==="שוער").map(a=>(
@@ -106,7 +97,6 @@ function CoachDashboard() {
         ))}
       </div>
 
-      {/* אזור פתקים מהירים ומצב רוח ברוחב המסך */}
       <div style={{display:'flex', gap:'20px', marginTop:'30px'}}>
         <div style={{flex:1}}>
           <h2>רשימות מהירות</h2>
@@ -118,12 +108,9 @@ function CoachDashboard() {
         </div>
       </div>
 
-      {/* פופאפ פעולות */}
       {selectedAction && <ActionsPopup action={selectedAction} onClose={handleClosePopup} onResult={handleActionResult}/>}
 
-      {/* לוח טקטי */}
       {showTacticalBoard && <TacticalBoard onClose={()=>setShowTacticalBoard(false)} />}
-
     </div>
   )
 }
