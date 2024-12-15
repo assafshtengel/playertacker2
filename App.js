@@ -57,9 +57,6 @@ function HomePage(){
       </div>
     </div>
   );
-<Route exact path="/login">
-  <Redirect to="/" />
-</Route>
 
 }
 
